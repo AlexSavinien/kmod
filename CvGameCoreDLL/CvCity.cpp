@@ -3278,7 +3278,8 @@ int CvCity::getProductionDifference(int iProductionNeeded, int iProduction, int 
 		return 0;
 	}
 
-	int iFoodProduction = bFoodProduction ? std::max(0, getYieldRate(YIELD_FOOD) - foodConsumption()) : 0;
+	int iLogisticsFood = GET_PLAYER(getOwnerINLINE()).getLogisticsNetFlowForCity(getID(), YIELD_FOOD, true);
+	int iFoodProduction = bFoodProduction ? std::max(0, getYieldRate(YIELD_FOOD) + iLogisticsFood - foodConsumption()) : 0;
 
 	int iOverflow = ((bOverflow) ? (getOverflowProduction() + getFeatureProduction()) : 0);
 
@@ -4758,6 +4759,7 @@ int CvCity::foodConsumption(bool bNoAngry, int iExtra) const
 int CvCity::foodDifference(bool bBottom, bool bIgnoreProduction) const
 {
 	int iDifference;
+	int iLogisticsFood = GET_PLAYER(getOwnerINLINE()).getLogisticsNetFlowForCity(getID(), YIELD_FOOD, true);
 
 	if (isDisorder())
 	{
@@ -4767,11 +4769,11 @@ int CvCity::foodDifference(bool bBottom, bool bIgnoreProduction) const
 	//if (isFoodProduction())
 	if (!bIgnoreProduction && isFoodProduction()) // K-Mod
 	{
-		iDifference = std::min(0, (getYieldRate(YIELD_FOOD) - foodConsumption()));
+		iDifference = std::min(0, (getYieldRate(YIELD_FOOD) + iLogisticsFood - foodConsumption()));
 	}
 	else
 	{
-		iDifference = (getYieldRate(YIELD_FOOD) - foodConsumption());
+		iDifference = (getYieldRate(YIELD_FOOD) + iLogisticsFood - foodConsumption());
 	}
 
 	if (bBottom)
@@ -6423,7 +6425,7 @@ int CvCity::getAdditionalSpoiledFood(int iGood, int iBad) const
  */
 int CvCity::getAdditionalStarvation(int iSpoiledFood) const
 {
-	int iFood = getYieldRate(YIELD_FOOD) - foodConsumption();
+	int iFood = getYieldRate(YIELD_FOOD) + GET_PLAYER(getOwnerINLINE()).getLogisticsNetFlowForCity(getID(), YIELD_FOOD, true) - foodConsumption();
 
 	if (iSpoiledFood > 0)
 	{

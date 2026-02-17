@@ -60,6 +60,7 @@ def showBugOptionsScreen(argsList=None):
 # BUG - Options - end
 
 g_bIsScreenActive = -1
+LOGISTICS_ROUTES_SCREEN = 9900
 
 def toggleSetNoScreens():
 	global g_bIsScreenActive
@@ -161,6 +162,24 @@ def createDomesticAdvisor():
 def showDomesticAdvisor(argsList):
 	if (-1 != CyGame().getActivePlayer()):
 		domesticAdvisor.interfaceScreen()
+
+logisticsRoutesScreen = None
+def createLogisticsRoutesScreen():
+	"""Creates the dedicated logistics routes screen."""
+	global logisticsRoutesScreen
+	if logisticsRoutesScreen is None:
+		import CvLogisticsRoutesScreen
+		logisticsRoutesScreen = CvLogisticsRoutesScreen.CvLogisticsRoutesScreen(LOGISTICS_ROUTES_SCREEN)
+		HandleInputMap[LOGISTICS_ROUTES_SCREEN] = logisticsRoutesScreen
+		HandleCloseMap[LOGISTICS_ROUTES_SCREEN] = logisticsRoutesScreen
+
+def showLogisticsRoutesScreen(argsList = None):
+	if (-1 != CyGame().getActivePlayer()):
+		createLogisticsRoutesScreen()
+		iSourceCityID = -1
+		if argsList and len(argsList) > 0:
+			iSourceCityID = argsList[0]
+		logisticsRoutesScreen.interfaceScreen(iSourceCityID)
 
 # BUG - Military Advisor - start
 militaryAdvisor = None

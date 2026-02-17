@@ -239,6 +239,7 @@ class CvMainInterface:
 			self.PLE.PLOT_LIST_PLUS_NAME	: self.PLE.getPlotListPlusName,
 			self.PLE.PLOT_LIST_UP_NAME		: self.PLE.getPlotListUpName,
 			self.PLE.PLOT_LIST_DOWN_NAME 	: self.PLE.getPlotListDownName,
+			"LogisticsRoutesButton"			: self.onLogisticsRoutesButton,
 			
 			"PleViewModeStyle1"				: self.PLE.onClickPLEViewMode,
 			self.PLE.PLE_VIEW_MODE			: self.PLE.onClickPLEViewMode,
@@ -610,6 +611,11 @@ class CvMainInterface:
 		screen.setButtonGFC( "CityTab2", "", "", iBtnX, iBtnY, iBtnWidth, iBtnWidth, WidgetTypes.WIDGET_CITY_TAB, 2, -1, ButtonStyles.BUTTON_STYLE_STANDARD )
 		screen.setStyle( "CityTab2", "Button_HUDJumpWonder_Style" )
 		screen.hide( "CityTab2" )
+
+		# City logistics routes button (shown only when city screen is active)
+		screen.setButtonGFC( "LogisticsRoutesButton", "<font=1>Routes</font>", "", xResolution - 284, yResolution - 170, 64, 30, WidgetTypes.WIDGET_GENERAL, -1, -1, ButtonStyles.BUTTON_STYLE_STANDARD )
+		screen.setStyle( "LogisticsRoutesButton", "Button_CityT1_Style" )
+		screen.hide( "LogisticsRoutesButton" )
 		
 		# Minimap initialization
 		screen.setMainInterface(True)
@@ -1043,6 +1049,7 @@ class CvMainInterface:
 
 		szHideList.append( "Hurry0" )
 		szHideList.append( "Hurry1" )
+		szHideList.append( "LogisticsRoutesButton" )
 		
 		screen.registerHideList( szHideList, len(szHideList), 0 )
 
@@ -1207,6 +1214,10 @@ class CvMainInterface:
 		screen = CyGInterfaceScreen( "MainInterface", CvScreenEnums.MAIN_INTERFACE )
 
 # BUG - Field of View - start
+		if (not hasattr(self, "DEFAULT_FIELD_OF_VIEW")):
+			self.DEFAULT_FIELD_OF_VIEW = max(40, min(80, screen.getXResolution() / 30))
+		if (not hasattr(self, "iField_View")):
+			self.iField_View = self.DEFAULT_FIELD_OF_VIEW
 		#self.setFieldofView(screen, CyInterface().isCityScreenUp())
 		self.setFieldofView(screen, False) # K-Mod. (using the default for the city screen is an ok idea, but it doesn't work properly because the screen is drawn before the value is changed.)
 # BUG - Field of View - end
@@ -2201,6 +2212,7 @@ class CvMainInterface:
 
 		# Conscript Button Show
 		screen.hide( "Conscript" )
+		screen.hide( "LogisticsRoutesButton" )
 		#screen.hide( "Liberate" )
 		screen.hide( "AutomateProduction" )
 		screen.hide( "AutomateCitizens" )
@@ -2234,6 +2246,16 @@ class CvMainInterface:
 				screen.setButtonGFC( "Conscript", szText, "", iBtnX, iBtnY, iBtnW, iBtnH, WidgetTypes.WIDGET_CONSCRIPT, -1, -1, ButtonStyles.BUTTON_STYLE_STANDARD )
 				screen.setStyle( "Conscript", "Button_CityT1_Style" )
 				screen.hide( "Conscript" )
+
+				# Routes Logistique button (slot above Draft)
+				iLogBtnX = iBtnSX
+				iLogBtnY = yResolution - 170
+				iLogBtnW = 64
+				iLogBtnH = 30
+				szText = "<font=1>Routes</font>"
+				screen.setButtonGFC( "LogisticsRoutesButton", szText, "", iLogBtnX, iLogBtnY, iLogBtnW, iLogBtnH, WidgetTypes.WIDGET_GENERAL, -1, -1, ButtonStyles.BUTTON_STYLE_STANDARD )
+				screen.setStyle( "LogisticsRoutesButton", "Button_CityT1_Style" )
+				screen.hide( "LogisticsRoutesButton" )
 
 				iBtnY += iBtnH
 				iBtnW = 32
@@ -2345,6 +2367,10 @@ class CvMainInterface:
 					screen.enable( "Conscript", True )
 				else:
 					screen.enable( "Conscript", False )
+
+				screen.show( "LogisticsRoutesButton" )
+				screen.enable( "LogisticsRoutesButton", pHeadSelectedCity.getOwner() == gc.getGame().getActivePlayer() )
+				screen.moveToFront( "LogisticsRoutesButton" )
 
 				# Liberate Button Show
 				#screen.show( "Liberate" )
@@ -3527,20 +3553,20 @@ class CvMainInterface:
 					screen.setHitTest( "PopulationText", HitTestTypes.HITTEST_NOHIT )
 					screen.show( "PopulationText" )
 
-				if (not pHeadSelectedCity.isDisorder() and not pHeadSelectedCity.isFoodProduction()):
-				
-# BUG - Food Assist - start
-					if (CityScreenOpt.isShowFoodAssist()):
+					if (not pHeadSelectedCity.isDisorder() and not pHeadSelectedCity.isFoodProduction()):
+					
+	# BUG - Food Assist - start
 						iFoodYield = pHeadSelectedCity.getYieldRate(YieldTypes.YIELD_FOOD)
 						iFoodEaten = pHeadSelectedCity.foodConsumption(False, 0)
-						if iFoodYield == iFoodEaten:
-							szBuffer = localText.getText("INTERFACE_CITY_FOOD_STAGNATE", (iFoodYield, iFoodEaten))
-						elif iFoodYield > iFoodEaten:
-							szBuffer = localText.getText("INTERFACE_CITY_FOOD_GROW", (iFoodYield, iFoodEaten, iFoodYield - iFoodEaten))
+						if (CityScreenOpt.isShowFoodAssist()):
+							if iFoodYield == iFoodEaten:
+								szBuffer = localText.getText("INTERFACE_CITY_FOOD_STAGNATE", (iFoodYield, iFoodEaten))
+							elif iFoodYield > iFoodEaten:
+								szBuffer = localText.getText("INTERFACE_CITY_FOOD_GROW", (iFoodYield, iFoodEaten, iFoodYield - iFoodEaten))
+							else:
+								szBuffer = localText.getText("INTERFACE_CITY_FOOD_SHRINK", (iFoodYield, iFoodEaten, iFoodYield - iFoodEaten))
 						else:
-							szBuffer = localText.getText("INTERFACE_CITY_FOOD_SHRINK", (iFoodYield, iFoodEaten, iFoodYield - iFoodEaten))
-					else:
-						szBuffer = u"%d%c - %d%c" %(pHeadSelectedCity.getYieldRate(YieldTypes.YIELD_FOOD), gc.getYieldInfo(YieldTypes.YIELD_FOOD).getChar(), pHeadSelectedCity.foodConsumption(False, 0), CyGame().getSymbolID(FontSymbols.EATEN_FOOD_CHAR))
+							szBuffer = u"%d%c - %d%c" %(iFoodYield, gc.getYieldInfo(YieldTypes.YIELD_FOOD).getChar(), iFoodEaten, CyGame().getSymbolID(FontSymbols.EATEN_FOOD_CHAR))
 # BUG - Food Assist - end
 # BUG - Food Rate Hover - start
 					# draw label below
@@ -5550,6 +5576,22 @@ class CvMainInterface:
 # BUG - field of view slider - end
 
 		return 0
+
+	def onLogisticsRoutesButton(self, inputClass):
+		if inputClass.getNotifyCode() != NotifyCode.NOTIFY_CLICKED:
+			return 0
+		if not CyInterface().isCityScreenUp():
+			return 0
+
+		pHeadSelectedCity = CyInterface().getHeadSelectedCity()
+		if (not pHeadSelectedCity) or pHeadSelectedCity.isNone():
+			return 0
+		if pHeadSelectedCity.getOwner() != gc.getGame().getActivePlayer():
+			return 0
+
+		import CvScreensInterface
+		CvScreensInterface.showLogisticsRoutesScreen((pHeadSelectedCity.getID(),))
+		return 1
 	
 # BUG - Raw Yields - start
 	def handleRawYieldsButtons(self, inputClass):
@@ -5596,6 +5638,10 @@ class CvMainInterface:
 
 # BUG - field of view slider - start
 	def setFieldofView(self, screen, bDefault):
+		if (not hasattr(self, "DEFAULT_FIELD_OF_VIEW")):
+			self.DEFAULT_FIELD_OF_VIEW = max(40, min(80, screen.getXResolution() / 30))
+		if (not hasattr(self, "iField_View")):
+			self.iField_View = self.DEFAULT_FIELD_OF_VIEW
 		#if bDefault or not MainOpt.isShowFieldOfView():
 		if bDefault or (not MainOpt.isShowFieldOfView() and not MainOpt.isRememberFieldOfView()): # K-Mod
 			self._setFieldofView(screen, self.DEFAULT_FIELD_OF_VIEW)
@@ -5608,6 +5654,8 @@ class CvMainInterface:
 			self.iField_View_Prev = iFoV
 
 	def setFieldofView_Text(self, screen):
+		if (not hasattr(self, "iField_View")):
+			self.iField_View = max(40, min(80, screen.getXResolution() / 30))
 		zsFieldOfView_Text = "%s [%i]" % (self.sFieldOfView_Text, self.iField_View)
 		screen.setLabel(self.szSliderTextId, "", zsFieldOfView_Text, CvUtil.FONT_RIGHT_JUSTIFY, self.iX_FoVSlider, self.iY_FoVSlider + 6, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
 # BUG - field of view slider - end

@@ -486,6 +486,36 @@ int CyPlayer::calculateTotalImports(int /*YieldTypes*/ eYield)
 	return m_pPlayer ? m_pPlayer->calculateTotalImports((YieldTypes)eYield) : -1;
 }
 
+bool CyPlayer::canCreateCityLogisticsRoute(int iSourceCityID, int iTargetCityID, int /*YieldTypes*/ eYieldType)
+{
+	return m_pPlayer ? m_pPlayer->canCreateLogisticsRoute(iSourceCityID, iTargetCityID, (YieldTypes)eYieldType) : false;
+}
+
+bool CyPlayer::isCityLogisticsRouteActive(int iSourceCityID, int iTargetCityID, int /*YieldTypes*/ eYieldType)
+{
+	return m_pPlayer ? m_pPlayer->isLogisticsRouteActive(iSourceCityID, iTargetCityID, (YieldTypes)eYieldType) : false;
+}
+
+int CyPlayer::getCityLogisticsRouteFlow(int iSourceCityID, int iTargetCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly)
+{
+	return m_pPlayer ? m_pPlayer->getLogisticsRouteFlow(iSourceCityID, iTargetCityID, (YieldTypes)eYieldType, bActiveOnly) : 0;
+}
+
+int CyPlayer::getCityLogisticsImport(int iCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly)
+{
+	return m_pPlayer ? m_pPlayer->getLogisticsCityImport(iCityID, (YieldTypes)eYieldType, bActiveOnly) : 0;
+}
+
+int CyPlayer::getCityLogisticsExport(int iCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly)
+{
+	return m_pPlayer ? m_pPlayer->getLogisticsCityExport(iCityID, (YieldTypes)eYieldType, bActiveOnly) : 0;
+}
+
+int CyPlayer::getCityLogisticsNet(int iCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly)
+{
+	return m_pPlayer ? m_pPlayer->getLogisticsNetFlowForCity(iCityID, (YieldTypes)eYieldType, bActiveOnly) : 0;
+}
+
 int CyPlayer::calculateTotalCityHappiness()
 {
 	return m_pPlayer ? m_pPlayer->calculateTotalCityHappiness() : -1;

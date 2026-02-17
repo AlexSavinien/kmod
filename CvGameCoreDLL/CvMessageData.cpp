@@ -5,6 +5,11 @@
 #include "CvDLLInterfaceIFaceBase.h"
 #include "CvEventReporter.h"
 
+namespace
+{
+const int MOD_NET_MESSAGE_SET_FOOD_ROUTE_FLOW = 7100;
+}
+
 CvMessageData* CvMessageData::createMessage(GameMessageTypes eType)
 {
 	switch (eType)
@@ -525,6 +530,16 @@ void CvNetModNetMessage::Debug(char* szAddendum)
 
 void CvNetModNetMessage::Execute()
 {
+	if (m_iData1 == MOD_NET_MESSAGE_SET_FOOD_ROUTE_FLOW)
+	{
+		PlayerTypes ePlayer = (PlayerTypes)m_iData2;
+		if (ePlayer >= 0 && ePlayer < MAX_PLAYERS)
+		{
+			GET_PLAYER(ePlayer).setLogisticsRouteFlow(m_iData3, m_iData4, YIELD_FOOD, std::max(0, m_iData5));
+		}
+		return;
+	}
+
 	CvEventReporter::getInstance().reportModNetMessage(m_iData1, m_iData2, m_iData3, m_iData4, m_iData5);
 }
 

@@ -36,6 +36,19 @@
 #include "BetterBTSAI.h"
 //bbai end
 
+namespace
+{
+BuildingClassTypes getGranaryBuildingClass()
+{
+	static int iGranaryBuildingClass = -2;
+	if (iGranaryBuildingClass == -2)
+	{
+		iGranaryBuildingClass = GC.getInfoTypeForString("BUILDINGCLASS_GRANARY");
+	}
+	return (iGranaryBuildingClass >= 0) ? (BuildingClassTypes)iGranaryBuildingClass : NO_BUILDINGCLASS;
+}
+}
+
 // Public Functions...
 
 CvPlayer::CvPlayer()
@@ -593,6 +606,7 @@ void CvPlayer::uninit()
 	SAFE_DELETE_ARRAY(m_paeCivics);
 
 	m_triggersFired.clear();
+	m_aLogisticsRoutes.clear();
 
 	if (m_ppaaiSpecialistExtraYield != NULL)
 	{
@@ -994,6 +1008,7 @@ void CvPlayer::reset(PlayerTypes eID, bool bConstructorCall)
 		m_aVote.clear();
 		m_aUnitExtraCosts.clear();
 		m_triggersFired.clear();
+		m_aLogisticsRoutes.clear();
 	}
 
 	m_plotGroups.removeAll();
@@ -7184,6 +7199,288 @@ int CvPlayer::calculateTotalImports(YieldTypes eYield) const
 		}
 	}
 	return iTotalImports;
+}
+
+bool CvPlayer::isLogisticsYieldSupported(YieldTypes eYieldType) const
+{
+	return (eYieldType >= 0 && eYieldType < NUM_YIELD_TYPES);
+}
+
+bool CvPlayer::isLogisticsSourceReady(const CvCity* pSourceCity, YieldTypes eYieldType) const
+{
+	if (pSourceCity == NULL)
+	{
+		return false;
+	}
+
+	switch (eYieldType)
+	{
+	case YIELD_FOOD:
+		{
+			BuildingClassTypes eGranaryClass = getGranaryBuildingClass();
+			if (eGranaryClass == NO_BUILDINGCLASS)
+			{
+				return false;
+			}
+
+			BuildingTypes eGranary = (BuildingTypes)GC.getCivilizationInfo(pSourceCity->getCivilizationType()).getCivilizationBuildings(eGranaryClass);
+			if (eGranary == NO_BUILDING)
+			{
+				return false;
+			}
+
+			return pSourceCity->getNumBuilding(eGranary) > 0;
+		}
+	default:
+		return true;
+	}
+}
+
+int CvPlayer::findLogisticsRouteIndex(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType) const
+{
+	for (uint i = 0; i < m_aLogisticsRoutes.size(); ++i)
+	{
+		const LogisticsRouteData& kRoute = m_aLogisticsRoutes[i];
+		if (kRoute.iSourceCityID == iSourceCityID
+			&& kRoute.iTargetCityID == iTargetCityID
+			&& kRoute.eYieldType == eYieldType)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+bool CvPlayer::canCreateLogisticsRoute(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType) const
+{
+	if (!isLogisticsYieldSupported(eYieldType))
+	{
+		return false;
+	}
+	if (iSourceCityID == iTargetCityID)
+	{
+		return false;
+	}
+
+	CvCity* pSourceCity = getCity(iSourceCityID);
+	CvCity* pTargetCity = getCity(iTargetCityID);
+	if (pSourceCity == NULL || pTargetCity == NULL)
+	{
+		return false;
+	}
+	if (pSourceCity->getOwnerINLINE() != getID() || pTargetCity->getOwnerINLINE() != getID())
+	{
+		return false;
+	}
+	if (!isLogisticsSourceReady(pSourceCity, eYieldType))
+	{
+		return false;
+	}
+
+	return pSourceCity->isConnectedTo(pTargetCity);
+}
+
+bool CvPlayer::isLogisticsRouteActive(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType) const
+{
+	if (!isLogisticsYieldSupported(eYieldType))
+	{
+		return false;
+	}
+
+	const int iRouteIndex = findLogisticsRouteIndex(iSourceCityID, iTargetCityID, eYieldType);
+	if (iRouteIndex < 0)
+	{
+		return false;
+	}
+
+	const LogisticsRouteData& kRoute = m_aLogisticsRoutes[iRouteIndex];
+	if (kRoute.iFlowPerTurn <= 0)
+	{
+		return false;
+	}
+
+	CvCity* pSourceCity = getCity(kRoute.iSourceCityID);
+	CvCity* pTargetCity = getCity(kRoute.iTargetCityID);
+	if (pSourceCity == NULL || pTargetCity == NULL)
+	{
+		return false;
+	}
+	if (pSourceCity->getOwnerINLINE() != getID() || pTargetCity->getOwnerINLINE() != getID())
+	{
+		return false;
+	}
+	if (!isLogisticsSourceReady(pSourceCity, kRoute.eYieldType))
+	{
+		return false;
+	}
+
+	return pSourceCity->isConnectedTo(pTargetCity);
+}
+
+bool CvPlayer::setLogisticsRouteFlow(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType, int iFlowPerTurn)
+{
+	if (!isLogisticsYieldSupported(eYieldType))
+	{
+		return false;
+	}
+
+	iFlowPerTurn = std::max(0, iFlowPerTurn);
+	const int iRouteIndex = findLogisticsRouteIndex(iSourceCityID, iTargetCityID, eYieldType);
+
+	if (iFlowPerTurn == 0)
+	{
+		if (iRouteIndex >= 0)
+		{
+			m_aLogisticsRoutes.erase(m_aLogisticsRoutes.begin() + iRouteIndex);
+		}
+		return true;
+	}
+
+	if (iRouteIndex >= 0)
+	{
+		if (!canCreateLogisticsRoute(iSourceCityID, iTargetCityID, eYieldType)
+			&& iFlowPerTurn > m_aLogisticsRoutes[iRouteIndex].iFlowPerTurn)
+		{
+			return false;
+		}
+		m_aLogisticsRoutes[iRouteIndex].iFlowPerTurn = iFlowPerTurn;
+	}
+	else
+	{
+		if (!canCreateLogisticsRoute(iSourceCityID, iTargetCityID, eYieldType))
+		{
+			return false;
+		}
+		LogisticsRouteData kRoute;
+		kRoute.iSourceCityID = iSourceCityID;
+		kRoute.iTargetCityID = iTargetCityID;
+		kRoute.eYieldType = eYieldType;
+		kRoute.iFlowPerTurn = iFlowPerTurn;
+		m_aLogisticsRoutes.push_back(kRoute);
+	}
+
+	return true;
+}
+
+int CvPlayer::getLogisticsRouteFlow(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType, bool bActiveOnly) const
+{
+	const int iRouteIndex = findLogisticsRouteIndex(iSourceCityID, iTargetCityID, eYieldType);
+	if (iRouteIndex < 0)
+	{
+		return 0;
+	}
+
+	const LogisticsRouteData& kRoute = m_aLogisticsRoutes[iRouteIndex];
+	if (kRoute.iFlowPerTurn <= 0)
+	{
+		return 0;
+	}
+	if (bActiveOnly && !isLogisticsRouteActive(iSourceCityID, iTargetCityID, eYieldType))
+	{
+		return 0;
+	}
+
+	return kRoute.iFlowPerTurn;
+}
+
+int CvPlayer::getLogisticsCityImport(int iCityID, YieldTypes eYieldType, bool bActiveOnly) const
+{
+	if (!isLogisticsYieldSupported(eYieldType))
+	{
+		return 0;
+	}
+
+	int iTotal = 0;
+	for (uint i = 0; i < m_aLogisticsRoutes.size(); ++i)
+	{
+		const LogisticsRouteData& kRoute = m_aLogisticsRoutes[i];
+		if (kRoute.iFlowPerTurn <= 0
+			|| kRoute.eYieldType != eYieldType
+			|| kRoute.iTargetCityID != iCityID)
+		{
+			continue;
+		}
+
+		if (!bActiveOnly || isLogisticsRouteActive(kRoute.iSourceCityID, kRoute.iTargetCityID, kRoute.eYieldType))
+		{
+			iTotal += kRoute.iFlowPerTurn;
+		}
+	}
+	return iTotal;
+}
+
+int CvPlayer::getLogisticsCityExport(int iCityID, YieldTypes eYieldType, bool bActiveOnly) const
+{
+	if (!isLogisticsYieldSupported(eYieldType))
+	{
+		return 0;
+	}
+
+	int iTotal = 0;
+	for (uint i = 0; i < m_aLogisticsRoutes.size(); ++i)
+	{
+		const LogisticsRouteData& kRoute = m_aLogisticsRoutes[i];
+		if (kRoute.iFlowPerTurn <= 0
+			|| kRoute.eYieldType != eYieldType
+			|| kRoute.iSourceCityID != iCityID)
+		{
+			continue;
+		}
+
+		if (!bActiveOnly || isLogisticsRouteActive(kRoute.iSourceCityID, kRoute.iTargetCityID, kRoute.eYieldType))
+		{
+			iTotal += kRoute.iFlowPerTurn;
+		}
+	}
+	return iTotal;
+}
+
+int CvPlayer::getLogisticsNetFlowForCity(int iCityID, YieldTypes eYieldType, bool bActiveOnly) const
+{
+	return getLogisticsCityImport(iCityID, eYieldType, bActiveOnly) - getLogisticsCityExport(iCityID, eYieldType, bActiveOnly);
+}
+
+void CvPlayer::clearLogisticsRoutesForCity(int iCityID)
+{
+	for (std::vector<LogisticsRouteData>::iterator it = m_aLogisticsRoutes.begin(); it != m_aLogisticsRoutes.end();)
+	{
+		if (it->iSourceCityID == iCityID || it->iTargetCityID == iCityID)
+		{
+			it = m_aLogisticsRoutes.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
+void CvPlayer::clearInvalidLogisticsRoutes()
+{
+	for (std::vector<LogisticsRouteData>::iterator it = m_aLogisticsRoutes.begin(); it != m_aLogisticsRoutes.end();)
+	{
+		if (it->iFlowPerTurn <= 0
+			|| !isLogisticsYieldSupported(it->eYieldType)
+			|| it->iSourceCityID == it->iTargetCityID)
+		{
+			it = m_aLogisticsRoutes.erase(it);
+			continue;
+		}
+
+		CvCity* pSourceCity = getCity(it->iSourceCityID);
+		CvCity* pTargetCity = getCity(it->iTargetCityID);
+		if (pSourceCity == NULL
+			|| pTargetCity == NULL
+			|| pSourceCity->getOwnerINLINE() != getID()
+			|| pTargetCity->getOwnerINLINE() != getID())
+		{
+			it = m_aLogisticsRoutes.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 
@@ -13769,6 +14066,7 @@ CvCity* CvPlayer::addCity()
 
 void CvPlayer::deleteCity(int iID)
 {
+	clearLogisticsRoutesForCity(iID);
 	m_cities.removeAt(iID);
 }
 
@@ -17770,6 +18068,23 @@ void CvPlayer::read(FDataStreamBase* pStream)
 	else
 		m_iInflationRate = 0; // We can't use updateInflationRate, because that relies on game-state which may not have been loaded yet.
 	// K-Mod end
+
+	m_aLogisticsRoutes.clear();
+	if (uiFlag >= 6)
+	{
+		uint iRouteCount = 0;
+		pStream->Read(&iRouteCount);
+		for (uint iRoute = 0; iRoute < iRouteCount; ++iRoute)
+		{
+			LogisticsRouteData kRoute;
+			pStream->Read(&kRoute.iSourceCityID);
+			pStream->Read(&kRoute.iTargetCityID);
+			pStream->Read((int*)&kRoute.eYieldType);
+			pStream->Read(&kRoute.iFlowPerTurn);
+			m_aLogisticsRoutes.push_back(kRoute);
+		}
+	}
+	clearInvalidLogisticsRoutes();
 }
 
 //
@@ -17780,7 +18095,7 @@ void CvPlayer::write(FDataStreamBase* pStream)
 {
 	int iI;
 
-	uint uiFlag = 5;
+	uint uiFlag = 6;
 	pStream->Write(uiFlag);		// flag for expansion
 
 	pStream->Write(m_iStartingX);
@@ -18192,6 +18507,18 @@ void CvPlayer::write(FDataStreamBase* pStream)
 	pStream->Write(m_iPopRushHurryCount);
 	pStream->Write(m_iInflationModifier);
 	pStream->Write(m_iInflationRate); // K-Mod, uiFlag >= 5
+	{
+		uint iRouteCount = m_aLogisticsRoutes.size();
+		pStream->Write(iRouteCount);
+		for (uint iRoute = 0; iRoute < iRouteCount; ++iRoute)
+		{
+			const LogisticsRouteData& kRoute = m_aLogisticsRoutes[iRoute];
+			pStream->Write(kRoute.iSourceCityID);
+			pStream->Write(kRoute.iTargetCityID);
+			pStream->Write(kRoute.eYieldType);
+			pStream->Write(kRoute.iFlowPerTurn);
+		}
+	}
 }
 
 void CvPlayer::createGreatPeople(UnitTypes eGreatPersonUnit, bool bIncrementThreshold, bool bIncrementExperience, int iX, int iY)

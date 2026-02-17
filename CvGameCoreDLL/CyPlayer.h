@@ -136,6 +136,12 @@ public:
 	int calculateTotalYield(int /*YieldTypes*/ eYield);
 	int calculateTotalExports(int /*YieldTypes*/ eYield);
 	int calculateTotalImports(int /*YieldTypes*/ eYield);
+	bool canCreateCityLogisticsRoute(int iSourceCityID, int iTargetCityID, int /*YieldTypes*/ eYieldType);
+	bool isCityLogisticsRouteActive(int iSourceCityID, int iTargetCityID, int /*YieldTypes*/ eYieldType);
+	int getCityLogisticsRouteFlow(int iSourceCityID, int iTargetCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly);
+	int getCityLogisticsImport(int iCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly);
+	int getCityLogisticsExport(int iCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly);
+	int getCityLogisticsNet(int iCityID, int /*YieldTypes*/ eYieldType, bool bActiveOnly);
 
 	int calculateTotalCityHappiness();
 	int calculateTotalCityUnhappiness();

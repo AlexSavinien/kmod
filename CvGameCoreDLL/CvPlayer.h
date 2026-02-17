@@ -251,6 +251,14 @@ public:
 	int calculateTotalYield(YieldTypes eYield) const;																											// Exposed to Python
 	int calculateTotalExports(YieldTypes eYield) const;																										// Exposed to Python
 	int calculateTotalImports(YieldTypes eYield) const;																										// Exposed to Python
+	bool canCreateLogisticsRoute(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType) const;	// Exposed to Python
+	bool isLogisticsRouteActive(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType) const;		// Exposed to Python
+	bool setLogisticsRouteFlow(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType, int iFlowPerTurn);	// Exposed to Python
+	int getLogisticsRouteFlow(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType, bool bActiveOnly = false) const;	// Exposed to Python
+	int getLogisticsCityImport(int iCityID, YieldTypes eYieldType, bool bActiveOnly = false) const;		// Exposed to Python
+	int getLogisticsCityExport(int iCityID, YieldTypes eYieldType, bool bActiveOnly = false) const;		// Exposed to Python
+	int getLogisticsNetFlowForCity(int iCityID, YieldTypes eYieldType, bool bActiveOnly = false) const;	// Exposed to Python
+	void clearLogisticsRoutesForCity(int iCityID);
 
 	int calculateTotalCityHappiness() const;																															// Exposed to Python
 	int calculateTotalCityUnhappiness() const;																														// Exposed to Python
@@ -1335,6 +1343,14 @@ protected:
 
 	std::vector< std::pair<int, PlayerVoteTypes> > m_aVote;
 	std::vector< std::pair<UnitClassTypes, int> > m_aUnitExtraCosts;
+	struct LogisticsRouteData
+	{
+		int iSourceCityID;
+		int iTargetCityID;
+		YieldTypes eYieldType;
+		int iFlowPerTurn;
+	};
+	std::vector<LogisticsRouteData> m_aLogisticsRoutes;
 
 	CvMessageQueue m_listGameMessages; 
 	CvPopupQueue m_listPopups;
@@ -1365,6 +1381,10 @@ protected:
 	void verifyGoldCommercePercent();
 
 	void processCivics(CivicTypes eCivic, int iChange);
+	int findLogisticsRouteIndex(int iSourceCityID, int iTargetCityID, YieldTypes eYieldType) const;
+	bool isLogisticsYieldSupported(YieldTypes eYieldType) const;
+	bool isLogisticsSourceReady(const CvCity* pSourceCity, YieldTypes eYieldType) const;
+	void clearInvalidLogisticsRoutes();
 
 	// for serialization
 	virtual void read(FDataStreamBase* pStream);

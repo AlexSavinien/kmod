@@ -4905,7 +4905,60 @@ void CvDLLWidgetData::parsePopulationHelp(CvWidgetDataStruct &widgetDataStruct, 
 
 	if (pHeadSelectedCity != NULL)
 	{
-		szBuffer.assign(gDLL->getText("TXT_KEY_MISC_FOOD_THRESHOLD", pHeadSelectedCity->getFood(), pHeadSelectedCity->growthThreshold()));
+		const int iFoodStored = pHeadSelectedCity->getFood();
+		const int iFoodThreshold = pHeadSelectedCity->growthThreshold();
+		const int iFoodYieldBase = pHeadSelectedCity->getYieldRate(YIELD_FOOD);
+		const int iFoodConsumed = pHeadSelectedCity->foodConsumption(false, 0);
+		const int iFoodNet = pHeadSelectedCity->foodDifference(true);
+		const int iFoodChar = GC.getYieldInfo(YIELD_FOOD).getChar();
+		const int iEatenChar = gDLL->getSymbolID(EATEN_FOOD_CHAR);
+		const int iBulletChar = gDLL->getSymbolID(BULLET_CHAR);
+
+		int iFoodImport = 0;
+		int iFoodExport = 0;
+		int iFoodRouteNet = 0;
+		if (pHeadSelectedCity->getOwnerINLINE() != NO_PLAYER)
+		{
+			const CvPlayer& kOwner = GET_PLAYER(pHeadSelectedCity->getOwnerINLINE());
+			iFoodImport = kOwner.getLogisticsCityImport(pHeadSelectedCity->getID(), YIELD_FOOD, true);
+			iFoodExport = kOwner.getLogisticsCityExport(pHeadSelectedCity->getID(), YIELD_FOOD, true);
+			iFoodRouteNet = iFoodImport - iFoodExport;
+		}
+
+		szBuffer.assign(gDLL->getText("TXT_KEY_MISC_FOOD_THRESHOLD", iFoodStored, iFoodThreshold));
+		szBuffer.append(NEWLINE);
+		szBuffer.append(CvWString::format(L"%c Nourriture brute: %d%c/tour", iBulletChar, iFoodYieldBase, iFoodChar));
+		szBuffer.append(NEWLINE);
+		szBuffer.append(CvWString::format(L"%c Consommation: %d%c/tour", iBulletChar, iFoodConsumed, iEatenChar));
+
+		if (iFoodImport != 0 || iFoodExport != 0 || iFoodRouteNet != 0)
+		{
+			szBuffer.append(NEWLINE);
+			szBuffer.append(CvWString::format(L"%c Import routes: +%d%c/tour", iBulletChar, iFoodImport, iFoodChar));
+			szBuffer.append(NEWLINE);
+			szBuffer.append(CvWString::format(L"%c Export routes: -%d%c/tour", iBulletChar, iFoodExport, iFoodChar));
+			szBuffer.append(NEWLINE);
+			szBuffer.append(CvWString::format(L"%c Net routes: %+d%c/tour", iBulletChar, iFoodRouteNet, iFoodChar));
+		}
+
+		szBuffer.append(NEWLINE);
+		szBuffer.append(CvWString::format(L"%c Solde net: %+d%c/tour", iBulletChar, iFoodNet, iFoodChar));
+		if (iFoodNet > 0)
+		{
+			szBuffer.append(NEWLINE);
+			szBuffer.append(CvWString::format(L"%c Croissance dans %d tour(s)", iBulletChar, pHeadSelectedCity->getFoodTurnsLeft()));
+		}
+		else if (iFoodNet < 0)
+		{
+			const int iTurnsToStarve = iFoodStored / std::max(1, -iFoodNet) + 1;
+			szBuffer.append(NEWLINE);
+			szBuffer.append(CvWString::format(L"%c Famine dans %d tour(s)", iBulletChar, iTurnsToStarve));
+		}
+		else
+		{
+			szBuffer.append(NEWLINE);
+			szBuffer.append(CvWString::format(L"%c Stagnation", iBulletChar));
+		}
 	}
 }
 
