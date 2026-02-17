@@ -1,0 +1,228 @@
+Civilsations:
+Celtes:
+    Guerrier Gaulois
+        Promotion combat sur colline -> 1-2 première attaques
+    Oppodum 
+        Promotion guerrilla -> Exercice 
+
+Aztec
+    Autel Sacrifice
+        Remplace le grenier plutôt que le tribunal
+
+Romain
+    Pretorien
+        8 -> 7 de puissance
+
+Viking
+    Guerrier Viking : 
+        8 -> 9 puissance
+
+Leaders: 
+ALEXANDER
+Avant PHILOSOPHICAL, AGGRESSIVE
+Après PHILOSOPHICAL, AGGRESSIVE, SPIRITUAL
+------------------------------
+ASOKA
+Avant FINANCIAL, ORGANIZED
+Après SPIRITUAL, ORGANIZED, AGRICULTURAL
+------------------------------
+AUGUSTUS
+Avant IMPERIALIST, INDUSTRIOUS
+Après PHILOSOPHICAL, IMPERIALIST, EXPANSIVE
+------------------------------
+BISMARCK
+Avant EXPANSIVE, INDUSTRIOUS
+Après EXPANSIVE, AGGRESSIVE, AGRICULTURAL
+------------------------------
+BOUDICA
+Avant CHARISMATIC, AGGRESSIVE
+Après CHARISMATIC, AGGRESSIVE, AGRICULTURAL
+------------------------------
+BRENNUS
+Avant SPIRITUAL, CHARISMATIC
+Après AGRICULTURAL, CHARISMATIC, EXPANSIVE
+------------------------------
+CATHERINE
+Avant CREATIVE, IMPERIALIST
+Après CREATIVE, IMPERIALIST, PHILOSOPHICAL
+------------------------------
+CHARLEMAGNE
+Avant IMPERIALIST, PROTECTIVE
+Après IMPERIALIST, AGGRESSIVE, AGRICULTURAL
+------------------------------
+CHURCHILL
+Avant CHARISMATIC, PROTECTIVE
+Après CHARISMATIC, INDUSTRIOUS, SPIRITUAL
+------------------------------
+CYRUS
+Avant CHARISMATIC, IMPERIALIST
+Après CHARISMATIC, IMPERIALIST, AGRICULTURAL
+------------------------------
+DARIUS
+Avant ORGANIZED, FINANCIAL
+Après ORGANIZED, FINANCIAL, SPIRITUAL
+------------------------------
+DE
+Avant INDUSTRIOUS, CHARISMATIC
+Après INDUSTRIOUS, CHARISMATIC, IMPERIALIST
+------------------------------
+ELIZABETH
+Avant PHILOSOPHICAL, FINANCIAL
+Après PHILOSOPHICAL, FINANCIAL, SPIRITUAL
+------------------------------
+FREDERICK
+Avant PHILOSOPHICAL, ORGANIZED
+Après PHILOSOPHICAL, ORGANIZED, CREATIVE
+------------------------------
+GANDHI
+Avant SPIRITUAL, PHILOSOPHICAL
+Après SPIRITUAL, PHILOSOPHICAL, AGRICULTURAL
+------------------------------
+GENGHIS
+Avant AGGRESSIVE, IMPERIALIST
+Après AGGRESSIVE, IMPERIALIST, ORGANIZED
+------------------------------
+GILGAMESH
+Avant PROTECTIVE, CREATIVE
+Après ORGANIZED, AGGRESSIVE, CREATIVE
+------------------------------
+HAMMURABI
+Avant ORGANIZED, AGGRESSIVE
+Après ORGANIZED, PHILOSOPHICAL, AGRICULTURAL
+------------------------------
+HANNIBAL
+Avant FINANCIAL, CHARISMATIC
+Après FINANCIAL, CHARISMATIC, SPIRITUAL
+------------------------------
+HATSHEPSUT
+Avant SPIRITUAL, CREATIVE
+Après SPIRITUAL, FINANCIAL, AGRICULTURAL
+------------------------------
+HUAYNA
+Avant INDUSTRIOUS, FINANCIAL
+Après INDUSTRIOUS, EXPANSIVE, CREATIVE
+------------------------------
+ISABELLA
+Avant SPIRITUAL, EXPANSIVE
+Après SPIRITUAL, EXPANSIVE, AGGRESSIVE
+------------------------------
+JOAO
+Avant IMPERIALIST, EXPANSIVE
+Après IMPERIALIST, EXPANSIVE, INDUSTRIOUS
+------------------------------
+JULIUS
+Avant ORGANIZED, IMPERIALIST
+Après PHILOSOPHICAL, CHARISMATIC, ORGANIZED
+------------------------------
+JUSTINIAN
+Avant SPIRITUAL, IMPERIALIST
+Après SPIRITUAL, IMPERIALIST, CREATIVE
+------------------------------
+KUBLAI
+Avant AGGRESSIVE, CREATIVE
+Après AGGRESSIVE, CREATIVE, IMPERIALIST
+------------------------------
+LINCOLN
+Avant PHILOSOPHICAL, CHARISMATIC
+Après PHILOSOPHICAL, INDUSTRIOUS, EXPANSIVE
+------------------------------
+LOUIS
+Avant INDUSTRIOUS, CREATIVE
+Après INDUSTRIOUS, CREATIVE, CHARISMATIC
+------------------------------
+MANSA
+Avant SPIRITUAL, FINANCIAL
+Après SPIRITUAL, FINANCIAL, INDUSTRIOUS
+------------------------------
+CHINESE
+Avant EXPANSIVE, PROTECTIVE
+Après EXPANSIVE, INDUSTRIOUS, AGRICULTURAL
+------------------------------
+MEHMED
+Avant EXPANSIVE, ORGANIZED
+Après EXPANSIVE, ORGANIZED, CHARISMATIC
+------------------------------
+MONTEZUMA
+Avant AGGRESSIVE, SPIRITUAL
+Après AGGRESSIVE, ORGANIZED, SPIRITUAL
+------------------------------
+NAPOLEON
+Avant ORGANIZED, CHARISMATIC
+Après ORGANIZED, CHARISMATIC, AGGRESSIVE
+------------------------------
+PACAL
+Avant FINANCIAL, EXPANSIVE
+Après IMPERIALIST, SPIRITUAL, AGRICULTURAL
+------------------------------
+PERICLES
+Avant PHILOSOPHICAL, CREATIVE
+Après PHILOSOPHICAL, CREATIVE, CHARISMATIC
+------------------------------
+PETER
+Avant PHILOSOPHICAL, EXPANSIVE
+Après PHILOSOPHICAL, EXPANSIVE, ORGANIZED
+------------------------------
+QIN
+Avant INDUSTRIOUS, PROTECTIVE
+Après INDUSTRIOUS, CREATIVE, ORGANIZED
+------------------------------
+RAMESSES
+Avant SPIRITUAL, INDUSTRIOUS
+Après SPIRITUAL, INDUSTRIOUS, AGGRESSIVE
+------------------------------
+RAGNAR
+Avant FINANCIAL, AGGRESSIVE
+Après FINANCIAL, AGGRESSIVE, EXPANSIVE
+------------------------------
+FRANKLIN
+Avant INDUSTRIOUS, ORGANIZED
+Après INDUSTRIOUS, ORGANIZED, PHILOSOPHICAL
+------------------------------
+SALADIN
+Avant PROTECTIVE, SPIRITUAL
+Après FINANCIAL, INDUSTRIOUS, CHARISMATIC
+------------------------------
+SHAKA
+Avant AGGRESSIVE, EXPANSIVE
+Après AGGRESSIVE, EXPANSIVE, PHILOSOPHICAL
+------------------------------
+SITTING
+Avant PHILOSOPHICAL, PROTECTIVE
+Après PHILOSOPHICAL, SPIRITUAL, CHARISMATIC
+------------------------------
+STALIN
+Avant INDUSTRIOUS, AGGRESSIVE
+Après INDUSTRIOUS, AGGRESSIVE, ORGANIZED
+------------------------------
+SULEIMAN
+Avant IMPERIALIST, PHILOSOPHICAL
+Après IMPERIALIST, PHILOSOPHICAL, SPIRITUAL
+------------------------------
+SURYAVARMAN
+Avant EXPANSIVE, CREATIVE
+Après CHARISMATIC, CREATIVE, AGRICULTURAL
+------------------------------
+TOKUGAWA
+Avant PROTECTIVE, AGGRESSIVE
+Après INDUSTRIOUS, AGGRESSIVE, CREATIVE
+------------------------------
+VICTORIA
+Avant IMPERIALIST, FINANCIAL
+Après IMPERIALIST, FINANCIAL, SPIRITUAL
+------------------------------
+WANGKON
+Avant FINANCIAL, PROTECTIVE
+Après FINANCIAL, PROTECTIVE, AGRICULTURAL
+------------------------------
+WASHINGTON
+Avant EXPANSIVE, CHARISMATIC
+Après EXPANSIVE, FINANCIAL, CHARISMATIC
+------------------------------
+WILLEM
+Avant CREATIVE, FINANCIAL
+Après CREATIVE, FINANCIAL, SPIRITUAL
+------------------------------
+ZARA
+Avant CREATIVE, ORGANIZED
+Après IMPERIALIST, ORGANIZED, CREATIVE
+------------------------------
