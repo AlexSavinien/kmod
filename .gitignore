@@ -1,0 +1,15 @@
+CvGameCoreDLL/Debug/
+CvGameCoreDLL/Release/
+CvGameCoreDLL/Profile/
+CvGameCoreDLL/Assert/
+CvGameCoreDLL/depends
+CvGameCoreDLL/sources.mk
+CvGameCoreDLL/*.obj
+CvGameCoreDLL/*.pch
+CvGameCoreDLL/*.pdb
+CvGameCoreDLL/*.idb
+CvGameCoreDLL/*.ilk
+CvGameCoreDLL/*.exp
+CvGameCoreDLL/*.lib
+CvGameCoreDLL/*.res
+CvGameCoreDLL/*.@
