@@ -107,5 +107,8 @@
 	<shortcut module="BugOptionsScreen" function="showOptionsScreen" keys="Alt Ctrl O | Alt J"/>
 	
 	<shortcut module="BugHelp" function="launch" keys="Alt Ctrl F1"/>
+	<shortcut module="SelectionShortcuts" function="selectWoundedStack" keys="Alt H"/>
+	<shortcut module="SelectionShortcuts" function="selectUndamagedStack" keys="Alt V | Ctrl V"/>
+	<shortcut module="SelectionShortcuts" function="selectFullMovesStack" keys="Alt W | Ctrl W"/>
 		<!--arg type="string" value="TXT_KEY_BUG_HELP_FILE"/-->
 </mod>

@@ -1452,6 +1452,8 @@ bool CvGame::canDoControl(ControlTypes eControl) const
 	case CONTROL_SELECTYUNITTYPE:
 	case CONTROL_SELECTYUNITALL:
 	case CONTROL_SELECT_HEALTHY:
+	case CONTROL_SELECT_UNDAMAGED:
+	case CONTROL_SELECT_FULL_MOVES:
 	case CONTROL_SELECTCITY:
 	case CONTROL_SELECTCAPITAL:
 	case CONTROL_NEXTUNIT:
@@ -1640,9 +1642,14 @@ void CvGame::doControl(ControlTypes eControl)
 		{
 			CvUnit* pGroupHead = NULL;
 			pHeadSelectedUnit = gDLL->getInterfaceIFace()->getHeadSelectedUnit();
-			gDLL->getInterfaceIFace()->clearSelectionList();
 			if (pHeadSelectedUnit != NULL)
 			{
+				// Alt+H: all wounded units on the current plot.
+				// Ctrl+H: wounded units of the same type as the selected unit.
+				const bool bSelectAllWounded = (GC.altKey() || gDLL->altKey());
+				const UnitTypes eTargetType = pHeadSelectedUnit->getUnitType();
+
+				gDLL->getInterfaceIFace()->clearSelectionList();
 				CvPlot* pPlot = pHeadSelectedUnit->plot();
 				std::vector<CvUnit *> plotUnits;
 				getPlotUnits(pPlot, plotUnits);
@@ -1655,7 +1662,101 @@ void CvGame::doControl(ControlTypes eControl)
 					{
 						//if (!isMPOption(MPOPTION_SIMULTANEOUS_TURNS) || getTurnSlice() - pUnit->getLastMoveTurn() > GC.getDefineINT("MIN_TIMER_UNIT_DOUBLE_MOVES")) // disabled by K-Mod
 						{
-							if (pUnit->isHurt())
+							if (pUnit->isHurt() && (bSelectAllWounded || pUnit->getUnitType() == eTargetType))
+							{
+								if (pGroupHead != NULL)
+								{
+									CvMessageControl::getInstance().sendJoinGroup(pUnit->getID(), pGroupHead->getID());
+								}
+								else
+								{
+									pGroupHead = pUnit;
+								}
+
+								gDLL->getInterfaceIFace()->insertIntoSelectionList(pUnit, false, false, true, true, true);
+							}
+						}
+					}
+				}
+
+				gDLL->getInterfaceIFace()->selectionListPostChange();
+			}
+		}
+		break;
+
+	case CONTROL_SELECT_UNDAMAGED:
+		{
+			CvUnit* pGroupHead = NULL;
+			pHeadSelectedUnit = gDLL->getInterfaceIFace()->getHeadSelectedUnit();
+			if (pHeadSelectedUnit != NULL)
+			{
+				// Alt+V: all non-wounded units on the current plot.
+				// Ctrl+V: non-wounded units of the same type as the selected unit.
+				const bool bSelectAllUndamaged = (GC.altKey() || gDLL->altKey());
+				const UnitTypes eTargetType = pHeadSelectedUnit->getUnitType();
+
+				gDLL->getInterfaceIFace()->clearSelectionList();
+				CvPlot* pPlot = pHeadSelectedUnit->plot();
+				std::vector<CvUnit *> plotUnits;
+				getPlotUnits(pPlot, plotUnits);
+				gDLL->getInterfaceIFace()->selectionListPreChange();
+				for (int iI = 0; iI < (int) plotUnits.size(); iI++)
+				{
+					pUnit = plotUnits[iI];
+
+					if (pUnit->getOwnerINLINE() == getActivePlayer())
+					{
+						//if (!isMPOption(MPOPTION_SIMULTANEOUS_TURNS) || getTurnSlice() - pUnit->getLastMoveTurn() > GC.getDefineINT("MIN_TIMER_UNIT_DOUBLE_MOVES")) // disabled by K-Mod
+						{
+							if (!pUnit->isHurt() && (bSelectAllUndamaged || pUnit->getUnitType() == eTargetType))
+							{
+								if (pGroupHead != NULL)
+								{
+									CvMessageControl::getInstance().sendJoinGroup(pUnit->getID(), pGroupHead->getID());
+								}
+								else
+								{
+									pGroupHead = pUnit;
+								}
+
+								gDLL->getInterfaceIFace()->insertIntoSelectionList(pUnit, false, false, true, true, true);
+							}
+						}
+					}
+				}
+
+				gDLL->getInterfaceIFace()->selectionListPostChange();
+			}
+		}
+		break;
+
+	case CONTROL_SELECT_FULL_MOVES:
+		{
+			CvUnit* pGroupHead = NULL;
+			pHeadSelectedUnit = gDLL->getInterfaceIFace()->getHeadSelectedUnit();
+			if (pHeadSelectedUnit != NULL)
+			{
+				// Alt+W: all units with full movement points on the current plot.
+				// Ctrl+W: full-movement units of the same type as the selected unit.
+				const bool bSelectAllFullMoves = (GC.altKey() || gDLL->altKey());
+				const UnitTypes eTargetType = pHeadSelectedUnit->getUnitType();
+
+				gDLL->getInterfaceIFace()->clearSelectionList();
+				CvPlot* pPlot = pHeadSelectedUnit->plot();
+				std::vector<CvUnit *> plotUnits;
+				getPlotUnits(pPlot, plotUnits);
+				gDLL->getInterfaceIFace()->selectionListPreChange();
+				for (int iI = 0; iI < (int) plotUnits.size(); iI++)
+				{
+					pUnit = plotUnits[iI];
+
+					if (pUnit->getOwnerINLINE() == getActivePlayer())
+					{
+						//if (!isMPOption(MPOPTION_SIMULTANEOUS_TURNS) || getTurnSlice() - pUnit->getLastMoveTurn() > GC.getDefineINT("MIN_TIMER_UNIT_DOUBLE_MOVES")) // disabled by K-Mod
+						{
+							if (pUnit->maxMoves() > 0 &&
+								pUnit->movesLeft() == pUnit->maxMoves() &&
+								(bSelectAllFullMoves || pUnit->getUnitType() == eTargetType))
 							{
 								if (pGroupHead != NULL)
 								{
