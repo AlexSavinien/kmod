@@ -1492,6 +1492,12 @@ bool CvPlot::isIrrigationAvailable(bool bIgnoreSelf) const
 {
 	CvPlot* pAdjacentPlot;
 	int iI;
+	static int iWaterWell = -2;
+
+	if (iWaterWell == -2)
+	{
+		iWaterWell = GC.getInfoTypeForString("IMPROVEMENT_WATER_WELL", true);
+	}
 
 	if (!bIgnoreSelf && isIrrigated())
 	{
@@ -1509,6 +1515,11 @@ bool CvPlot::isIrrigationAvailable(bool bIgnoreSelf) const
 
 		if (pAdjacentPlot != NULL)
 		{
+			if (iWaterWell != -1 && pAdjacentPlot->getImprovementType() == iWaterWell)
+			{
+				return true;
+			}
+
 			if (pAdjacentPlot->isIrrigated())
 			{
 				return true;

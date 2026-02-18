@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Civ4GameText xmlns="http://www.firaxis.com">
+	<TEXT>
+		<Tag>TXT_KEY_BUILD_WATER_WELL</Tag>
+		<English>Build Water Well</English>
+		<French>
+			<Text>Construire un puits d'eau</Text>
+			<Gender>Male</Gender>
+			<Plural>0</Plural>
+		</French>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_IMPROVEMENT_WATER_WELL</Tag>
+		<English>Water Well</English>
+		<French>
+			<Text>Puits d'eau</Text>
+			<Gender>Male</Gender>
+			<Plural>0</Plural>
+		</French>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_IMPROVEMENT_WATER_WELL_PEDIA</Tag>
+		<English>A water well provides irrigation support to adjacent tiles. It has no base yield.</English>
+		<French>
+			<Text>Un puits d'eau fournit une irrigation aux cases adjacentes. Il ne donne aucun rendement de base.</Text>
+			<Gender>Male</Gender>
+			<Plural>0</Plural>
+		</French>
+	</TEXT>
+</Civ4GameText>

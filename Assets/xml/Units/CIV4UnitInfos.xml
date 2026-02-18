@@ -1007,6 +1007,10 @@
 					<bBuild>1</bBuild>
 				</Build>
 				<Build>
+					<BuildType>BUILD_WATER_WELL</BuildType>
+					<bBuild>1</bBuild>
+				</Build>
+				<Build>
 					<BuildType>BUILD_WELL</BuildType>
 					<bBuild>1</bBuild>
 				</Build>
@@ -1262,6 +1266,10 @@
 				</Build>
 				<Build>
 					<BuildType>BUILD_CAMP</BuildType>
+					<bBuild>1</bBuild>
+				</Build>
+				<Build>
+					<BuildType>BUILD_WATER_WELL</BuildType>
 					<bBuild>1</bBuild>
 				</Build>
 				<Build>
