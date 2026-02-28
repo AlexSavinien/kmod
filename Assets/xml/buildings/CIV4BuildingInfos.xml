@@ -7628,7 +7628,12 @@
 					<iProductionTrait>100</iProductionTrait>
 				</ProductionTrait>
 			</ProductionTraits>
-			<HappinessTraits/>
+			<HappinessTraits>
+				<HappinessTrait>
+					<HappinessTraitType>TRAIT_PHILOSOPHICAL</HappinessTraitType>
+					<iHappinessTrait>1</iHappinessTrait>
+				</HappinessTrait>
+			</HappinessTraits>
 			<NoBonus>NONE</NoBonus>
 			<PowerBonus>NONE</PowerBonus>
 			<FreeBonus>NONE</FreeBonus>
@@ -7811,7 +7816,12 @@
 					<iProductionTrait>100</iProductionTrait>
 				</ProductionTrait>
 			</ProductionTraits>
-			<HappinessTraits/>
+			<HappinessTraits>
+				<HappinessTrait>
+					<HappinessTraitType>TRAIT_PHILOSOPHICAL</HappinessTraitType>
+					<iHappinessTrait>1</iHappinessTrait>
+				</HappinessTrait>
+			</HappinessTraits>
 			<NoBonus>NONE</NoBonus>
 			<PowerBonus>NONE</PowerBonus>
 			<FreeBonus>NONE</FreeBonus>

@@ -1049,7 +1049,7 @@ class CvMainInterface:
 
 		szHideList.append( "Hurry0" )
 		szHideList.append( "Hurry1" )
-		szHideList.append( "LogisticsRoutesButton" )
+		# Keep logistics out of hide-list batching; its widget can be recreated during city updates.
 		
 		screen.registerHideList( szHideList, len(szHideList), 0 )
 
