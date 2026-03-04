@@ -11362,7 +11362,7 @@ void CvCityAI::AI_stealPlots()
                     pWorkingCity = static_cast<CvCityAI*>(pLoopPlot->getWorkingCity());
                     if ((pWorkingCity != this) && (pWorkingCity != NULL))
                     {
-                        FAssert(pWorkingCity->getOwnerINLINE() == getOwnerINLINE());
+                        FAssert(pWorkingCity->getTeam() == getTeam());
                         iOtherImportance = pWorkingCity->AI_getCityImportance(true, false);
                         if (iImportance > iOtherImportance)
                         {

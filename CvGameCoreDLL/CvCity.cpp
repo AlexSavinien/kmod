@@ -11305,7 +11305,7 @@ void CvCity::alterWorkingPlot(int iIndex)
 					}
 				}
 			}
-			else if (pPlot->getOwnerINLINE() == getOwnerINLINE())
+			else if (pPlot->isOwned() && pPlot->getTeam() == getTeam())
 			{
 				pPlot->setWorkingCityOverride(this);
 			}

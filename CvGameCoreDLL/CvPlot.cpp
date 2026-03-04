@@ -5971,7 +5971,7 @@ void CvPlot::updateWorkingCity()
 	if (pBestCity == NULL)
 	{
 		pBestCity = getWorkingCityOverride();
-		FAssertMsg((pBestCity == NULL) || (pBestCity->getOwnerINLINE() == getOwnerINLINE()), "pBest city is expected to either be NULL or the current plot instance's");
+		FAssertMsg((pBestCity == NULL) || (isOwned() && pBestCity->getTeam() == getTeam()), "pBest city is expected to either be NULL or on the same team as the current plot instance");
 	}
 
 	if ((pBestCity == NULL) && isOwned())
@@ -6067,7 +6067,7 @@ void CvPlot::setWorkingCityOverride( const CvCity* pNewValue)
 	{
 		if (pNewValue != NULL)
 		{
-			FAssertMsg(pNewValue->getOwnerINLINE() == getOwnerINLINE(), "Argument city pNewValue's owner is expected to be the same as the current instance");
+			FAssertMsg(isOwned() && pNewValue->getTeam() == getTeam(), "Argument city pNewValue is expected to be on the same team as the current instance");
 			m_workingCityOverride = pNewValue->getIDInfo();
 		}
 		else
