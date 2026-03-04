@@ -13,6 +13,7 @@ from CvPythonExtensions import *
 
 import AttitudeUtil
 import BugUtil
+import CvUtil
 import PlayerUtil
 import SdToolKit
 
@@ -71,7 +72,8 @@ def doUpdate ():
 			# Player we are updating must be a valid, living, non-human, full-fledged civ.
 			if ( pPlayer and (not pPlayer.isNone()) and pPlayer.isAlive() and (not pPlayer.isHuman())
 				 and (not pPlayer.isBarbarian()) and (not pPlayer.isMinorCiv()) ):
-				BugUtil.debug("Updating Info for Player %d (%s)" % (iPlayer, pPlayer.getName()))
+				BugUtil.debug("Updating Info for Player %d (%s)",
+							  iPlayer, CvUtil.convertToStr(pPlayer.getName()))
 				iTeam = pPlayer.getTeam()
 				pTeam = gc.getTeam(iTeam)
 				# Team assumed valid, living, etc. since the player was.
@@ -96,7 +98,8 @@ def doUpdate ():
 						if ( pOtherPlayer and (iOtherPlayer != iPlayer) 
 							 and (not pOtherPlayer.isNone()) and pOtherPlayer.isAlive() 
 							 and (not pOtherPlayer.isBarbarian()) and (not pOtherPlayer.isMinorCiv()) ):
-							BugUtil.debug(" -- Testing against Player %d (%s)" % (iOtherPlayer, pOtherPlayer.getName()))
+							BugUtil.debug(" -- Testing against Player %d (%s)",
+										  iOtherPlayer, CvUtil.convertToStr(pOtherPlayer.getName()))
 							iOtherTeam = pOtherPlayer.getTeam()
 							if ( (not pActiveTeam.isHasMet(iOtherTeam)) or (not pTeam.isHasMet(iOtherTeam)) ):
 								BugUtil.debug("     -- Skipping; either active team or updating team has not met test team")
@@ -107,31 +110,36 @@ def doUpdate ():
 								eCivic = pPlayer.getCivics(eCategory)
 								if (eCivic == pOtherPlayer.getCivics(eCategory)):
 									if bFoundPossibleFavorite:
-										BugUtil.debug("     -- Players share civic %d (%s) and %s is giving the diplo modifier." 
-													  % (eCivic, gc.getCivicInfo(eCivic).getText(), pPlayer.getName()))
-										BugUtil.debug("         -- This is the only possible favorite in category %d (%s)." 
-													  % (eCategory, gc.getCivicOptionInfo(eCategory).getText()))
+										BugUtil.debug("     -- Players share civic %d (%s) and %s is giving the diplo modifier.",
+													  eCivic, CvUtil.convertToStr(gc.getCivicInfo(eCivic).getText()),
+													  CvUtil.convertToStr(pPlayer.getName()))
+										BugUtil.debug("         -- This is the only possible favorite in category %d (%s).",
+													  eCategory, CvUtil.convertToStr(gc.getCivicOptionInfo(eCategory).getText()))
 										for eOtherCivic in gCivicsByCategory[eCategory]:
 											if (eOtherCivic != eCivic):
 												favorite.removePossible(eOtherCivic)
 									else:
-										BugUtil.debug("     -- Players share civic %d (%s) but %s is NOT giving the diplo modifier." 
-													  % (eCivic, gc.getCivicInfo(eCivic).getText(), pPlayer.getName()))
+										BugUtil.debug("     -- Players share civic %d (%s) but %s is NOT giving the diplo modifier.",
+													  eCivic, CvUtil.convertToStr(gc.getCivicInfo(eCivic).getText()),
+													  CvUtil.convertToStr(pPlayer.getName()))
 										BugUtil.debug("         -- This one must be ruled out as a possible favorite.")
 										favorite.removePossible(eCivic)
 								else:
 									if bFoundPossibleFavorite:
-										BugUtil.debug("     -- Players do NOT share civic %d (%s) but %s is giving the diplo modifier." 
-													  % (eCivic, gc.getCivicInfo(eCivic).getText(), pPlayer.getName()))
-										BugUtil.debug("         -- All civics in category %d (%s) must be ruled out." 
-													  % (eCategory, gc.getCivicOptionInfo(eCategory).getText()))
+										BugUtil.debug("     -- Players do NOT share civic %d (%s) but %s is giving the diplo modifier.",
+													  eCivic, CvUtil.convertToStr(gc.getCivicInfo(eCivic).getText()),
+													  CvUtil.convertToStr(pPlayer.getName()))
+										BugUtil.debug("         -- All civics in category %d (%s) must be ruled out.",
+													  eCategory, CvUtil.convertToStr(gc.getCivicOptionInfo(eCategory).getText()))
 										for eOtherCivic in gCivicsByCategory[eCategory]:
 											favorite.removePossible(eOtherCivic)
 									else:
-										BugUtil.debug("     -- Players do NOT share civic %d (%s) and %s is NOT giving the diplo modifier." 
-													  % (eCivic, gc.getCivicInfo(eCivic).getText(), pPlayer.getName()))
+										BugUtil.debug("     -- Players do NOT share civic %d (%s) and %s is NOT giving the diplo modifier.",
+													  eCivic, CvUtil.convertToStr(gc.getCivicInfo(eCivic).getText()),
+													  CvUtil.convertToStr(pPlayer.getName()))
 										BugUtil.debug("         -- This doesn't tell us anything new.") 
-				BugUtil.debug(" -- Finished update for %s: %s" % (pPlayer.getName(), str(favorite)))
+				BugUtil.debug(" -- Finished update for %s: %s",
+							  CvUtil.convertToStr(pPlayer.getName()), str(favorite))
 		#dump()
 
 def initData ():
@@ -159,7 +167,7 @@ def initHelpers ():
 	"""
 	global gDetectionNecessary
 	gDetectionNecessary = gc.getGame().isOption(GameOptionTypes.GAMEOPTION_RANDOM_PERSONALITIES)
-	BugUtil.debug("FavoriteCivicDetector.initHelpers() gDetectionNecessary: %s" % (str(gDetectionNecessary)))
+	BugUtil.debug("FavoriteCivicDetector.initHelpers() gDetectionNecessary: %s", str(gDetectionNecessary))
 	if gDetectionNecessary:
 		BugUtil.debug("FavoriteCivicDetector.initHelpers() initializing gCivicsByCategory")
 		global gCivicsByCategory
@@ -174,7 +182,7 @@ def dump (*args):
 	if gDetectionNecessary:
 		if not args:
 			args = range(gc.getMAX_PLAYERS())
-		BugUtil.debug("FavoriteCivicDetector.dump() Dumping data for players %s." % (str(args)))
+		BugUtil.debug("FavoriteCivicDetector.dump() Dumping data for players %s.", str(args))
 		for iPlayer in args:
 			pPlayer = gc.getPlayer(iPlayer)
 			if ( pPlayer and (not pPlayer.isNone()) and pPlayer.isAlive() and (not pPlayer.isHuman())
@@ -182,7 +190,7 @@ def dump (*args):
 				if (iPlayer in gFavoriteByPlayer):
 					BugUtil.debug(str(gFavoriteByPlayer[iPlayer]))
 				else:
-					BugUtil.debug("FavoriteCivicDetector.dump() No data for player %d!" % (iPlayer))
+					BugUtil.debug("FavoriteCivicDetector.dump() No data for player %d!", iPlayer)
 	else:
 		BugUtil.debug("FavoriteCivicDetector.dump() Nothing to dump; detection isn't necessary.")
 
@@ -282,7 +290,7 @@ class FavoriteCivic:
 		szReturnText = "FavoriteCivic { iPlayer = %d, " % (self.iPlayer)
 		szText = "UNKNOWN"
 		if self.isKnown():
-			szText = gc.getCivicInfo(self.eFavorite).getText()
+			szText = CvUtil.convertToStr(gc.getCivicInfo(self.eFavorite).getText())
 		szReturnText = szReturnText + "eFavorite: %d (%s), " % (self.eFavorite, szText)
 		szReturnText = szReturnText + "possibles: %s }" % (str(self.possibles))
 		return szReturnText
@@ -303,7 +311,7 @@ class FavoriteCivicDetector:
 			iActivePlayer = argsList[0]
 			iTurn = argsList[1]
 			BugUtil.debug("======================================================================")
-			BugUtil.debug("FavoriteCivicDetectorEvent.onBeginActivePlayerTurn() START Turn %d" % (iTurn))
+			BugUtil.debug("FavoriteCivicDetectorEvent.onBeginActivePlayerTurn() START Turn %d", iTurn)
 			doUpdate()
 			BugUtil.debug("FavoriteCivicDetectorEvent.onBeginActivePlayerTurn() Update Complete.")
 
