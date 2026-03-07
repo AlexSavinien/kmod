@@ -12,9 +12,15 @@ Objectif: reduire le temps de re-contextualisation sur les gros tickets (SDK C++
 ## Workflow standard
 1. Coder dans repo local (`C:\Dev\kmod new`).
 2. Compiler DLL: `build_kmod.cmd Release` dans `CvGameCoreDLL`.
-3. Deploy vers Steam: `powershell -ExecutionPolicy Bypass -File .\deploy_to_steam.ps1 -UseBuiltDll`.
-4. Verifier hash DLL source/deployee.
+3. Deploy vers Steam (strict): `powershell -ExecutionPolicy Bypass -File .\deploy_to_steam.ps1 -UseBuiltDll`.
+4. Verifier hash DLL source/deployee (le script fait aussi une verification automatique).
 5. Tester en jeu.
+
+## Regle stricte de deploy
+- Ne pas lancer `deploy_to_steam.ps1` sans `-UseBuiltDll`.
+- Toujours faire au minimum un dry-run strict avant un deploy reel:
+  - `powershell -ExecutionPolicy Bypass -File .\deploy_to_steam.ps1 -UseBuiltDll -DryRun`
+- Objectif: eviter les faux bugs dus a un Python a jour avec une DLL Steam obsolete.
 
 ## Commandes utiles
 - Recherche code rapide: `rg "pattern" path`.

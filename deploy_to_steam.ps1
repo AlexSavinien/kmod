@@ -10,6 +10,10 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $targetRoot = Join-Path $ModsRoot $ModName
 
+if (-not $UseBuiltDll) {
+    throw "Strict deploy policy: -UseBuiltDll is mandatory to prevent Python/DLL desync."
+}
+
 if (-not (Test-Path $ModsRoot)) {
     throw "Mods root folder not found: $ModsRoot"
 }
@@ -83,19 +87,23 @@ foreach ($file in $runtimeFiles) {
     }
 }
 
-if ($UseBuiltDll) {
-    $builtDll = Join-Path $repoRoot "CvGameCoreDLL\Release\CvGameCoreDLL.dll"
-    $targetDll = Join-Path $targetRoot "Assets\CvGameCoreDLL.dll"
+$builtDll = Join-Path $repoRoot "CvGameCoreDLL\Release\CvGameCoreDLL.dll"
+$targetDll = Join-Path $targetRoot "Assets\CvGameCoreDLL.dll"
 
-    if (-not (Test-Path $builtDll)) {
-        throw "Built DLL not found: $builtDll"
-    }
+if (-not (Test-Path $builtDll)) {
+    throw "Built DLL not found: $builtDll"
+}
 
-    if ($DryRun) {
-        Write-Host "DRY RUN: copy $builtDll -> $targetDll"
-    } else {
-        Copy-Item -Path $builtDll -Destination $targetDll -Force
+if ($DryRun) {
+    Write-Host "DRY RUN: copy $builtDll -> $targetDll"
+} else {
+    Copy-Item -Path $builtDll -Destination $targetDll -Force
+    $sourceHash = (Get-FileHash $builtDll -Algorithm SHA256).Hash
+    $targetHash = (Get-FileHash $targetDll -Algorithm SHA256).Hash
+    if ($sourceHash -ne $targetHash) {
+        throw "DLL hash mismatch after deploy. source=$sourceHash target=$targetHash"
     }
+    Write-Host "DLL hash verified: $sourceHash"
 }
 
 Write-Host "Deploy complete: $targetRoot"

@@ -48,7 +48,7 @@ Depuis `C:\Dev\kmod new`:
 Dry-run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\deploy_to_steam.ps1 -DryRun
+powershell -ExecutionPolicy Bypass -File .\deploy_to_steam.ps1 -UseBuiltDll -DryRun
 ```
 
 Deploiement reel:
@@ -58,7 +58,8 @@ powershell -ExecutionPolicy Bypass -File .\deploy_to_steam.ps1 -UseBuiltDll
 ```
 
 Important:
-- Utiliser `-UseBuiltDll` apres une compilation pour copier la DLL fraichement compilee dans le dossier Steam.
+- `-UseBuiltDll` est obligatoire (deploiement strict) pour eviter les desynchronisations Python/DLL.
+- Le script valide automatiquement le hash SHA256 de la DLL source et deployee apres copie.
 
 ## Verification rapide
 
