@@ -83,13 +83,11 @@ Les hashes doivent etre identiques.
 
 ## Regles de push et versionning
 
-- Chaque push doit inclure une mise a jour des patchnotes "latest":
-  - `patchnote.md`
-  - `patchnote_full.md`
-- Les deux fichiers "latest" doivent afficher une version explicite au format `vMAJOR.MINOR.PATCH`.
-- A chaque nouvelle version, creer un snapshot dans `patchnotes/versions/vMAJOR.MINOR.PATCH/` avec:
-  - `patchnote.md`
-  - `patchnote_full.md`
+- Chaque push doit inclure:
+  - un nouveau fichier versionne `patchnotes/patchnote_vMAJOR.MINOR.PATCH.md`
+  - une mise a jour de `patchnote_full.md` (resume cumulatif)
+- Utiliser le script de generation:
+  - `powershell -ExecutionPolicy Bypass -File .\patchnotes\new_patchnote_version.ps1 -Version vMAJOR.MINOR.PATCH`
 - Mettre a jour l'index des versions dans `patchnotes/README.md`.
 - Regle d'increment:
   - `MAJOR`: changement cassant ou refonte majeure.
@@ -97,7 +95,7 @@ Les hashes doivent etre identiques.
   - `PATCH`: correctif, ajustement d'equilibrage mineur, doc, tooling.
 - `patchnote_full.md` doit representer le delta global courant vs `karadoc/Civ4-K-Mod`.
 - Avant push, verifier que les fichiers suivants sont coherents avec le contenu du commit:
-  - `patchnote.md`
+  - `patchnotes/patchnote_vMAJOR.MINOR.PATCH.md`
   - `patchnote_full.md`
   - `patchnotes/README.md`
 

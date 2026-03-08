@@ -1,9 +1,9 @@
-﻿# Patchnote Gameplay Complet - v1.0.0
+﻿# Patchnote Gameplay Complet (cumulatif)
 
-- Version: v1.0.0
-- Date: 2026-03-08
+- Derniere version patchnote: v1.0.0
+- Derniere mise a jour: 2026-03-08
 - Comparaison: K-Mod Karadoc -> version actuelle du mod.
-- Archive: `patchnotes/versions/v1.0.0/patchnote_full.md`
+- Historique versions: [patchnotes/README.md](patchnotes/README.md)
 
 ## Vue d'ensemble
 - Leaders modifies ou ajoutes: 54
@@ -444,6 +444,7 @@
     - Force: 4 -> 7
     - Mouvement: 2 -> 1
     - Promotions gratuites: Mobilite -> Aucun
+
 
 
 

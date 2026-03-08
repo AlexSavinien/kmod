@@ -1,9 +1,9 @@
-﻿# Patchnote Gameplay (version courte) - v1.0.0
+﻿# Patchnote Gameplay - v1.0.0
 
 - Version: v1.0.0
 - Date: 2026-03-08
 - Comparaison: K-Mod Karadoc -> version actuelle du mod.
-- Archive: `patchnotes/versions/v1.0.0/patchnote.md`
+- Resume cumulatif: [patchnote_full.md](../patchnote_full.md)
 
 ## Changements globaux
 - Le mod pousse de nombreux leaders vers un profil a 3 traits (au lieu de 2).
@@ -42,7 +42,8 @@
 - Leaders:
   - Pacal: Financier / Travailleur -> Organise / Creatif / Agricole
 
-Le detail complet, civilisation par civilisation, est dans [patchnote_full.md](patchnote_full.md).
+Le detail complet, civilisation par civilisation, est dans [patchnote_full.md](../patchnote_full.md).
+
 
 
 
