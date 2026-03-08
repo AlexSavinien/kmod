@@ -52,3 +52,10 @@ Objectif: reduire le temps de re-contextualisation sur les gros tickets (SDK C++
   - checklist de test,
   - commandes build/deploy.
 - Committer par bloc coherent (pas de gros commit flou).
+
+## Regles de push (obligatoire)
+- Mettre a jour `patchnote.md` a chaque push.
+- Renseigner une version `vMAJOR.MINOR.PATCH` dans l'entree de patchnote du commit.
+- Mettre a jour `patchnote_full.md` pour refleter le delta global vs `karadoc/Civ4-K-Mod`.
+- Verifier avant push:
+  - `git diff -- patchnote.md patchnote_full.md AGENTS.md docs/DEV_WORKFLOW.md`

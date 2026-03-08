@@ -81,3 +81,16 @@ Les hashes doivent etre identiques.
 - Erreurs de quoting/nmake
   - Passer par `build_kmod.cmd` (eviter les appels `nmake` manuels).
 
+## Regles de push et versionning
+
+- Chaque push doit inclure une mise a jour de `patchnote.md`.
+- Chaque entree de `patchnote.md` doit avoir une version explicite au format `vMAJOR.MINOR.PATCH`.
+- Regle d'increment:
+  - `MAJOR`: changement cassant ou refonte majeure.
+  - `MINOR`: nouvelle fonctionnalite gameplay/UI.
+  - `PATCH`: correctif, ajustement d'equilibrage mineur, doc, tooling.
+- `patchnote_full.md` doit representer le delta global courant vs `karadoc/Civ4-K-Mod`.
+- Avant push, verifier que les fichiers suivants sont coherents avec le contenu du commit:
+  - `patchnote.md`
+  - `patchnote_full.md`
+

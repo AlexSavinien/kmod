@@ -13,3 +13,4 @@ CvGameCoreDLL/*.exp
 CvGameCoreDLL/*.lib
 CvGameCoreDLL/*.res
 CvGameCoreDLL/*.@
+_research/
