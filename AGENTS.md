@@ -83,8 +83,14 @@ Les hashes doivent etre identiques.
 
 ## Regles de push et versionning
 
-- Chaque push doit inclure une mise a jour de `patchnote.md`.
-- Chaque entree de `patchnote.md` doit avoir une version explicite au format `vMAJOR.MINOR.PATCH`.
+- Chaque push doit inclure une mise a jour des patchnotes "latest":
+  - `patchnote.md`
+  - `patchnote_full.md`
+- Les deux fichiers "latest" doivent afficher une version explicite au format `vMAJOR.MINOR.PATCH`.
+- A chaque nouvelle version, creer un snapshot dans `patchnotes/versions/vMAJOR.MINOR.PATCH/` avec:
+  - `patchnote.md`
+  - `patchnote_full.md`
+- Mettre a jour l'index des versions dans `patchnotes/README.md`.
 - Regle d'increment:
   - `MAJOR`: changement cassant ou refonte majeure.
   - `MINOR`: nouvelle fonctionnalite gameplay/UI.
@@ -93,4 +99,5 @@ Les hashes doivent etre identiques.
 - Avant push, verifier que les fichiers suivants sont coherents avec le contenu du commit:
   - `patchnote.md`
   - `patchnote_full.md`
+  - `patchnotes/README.md`
 
