@@ -1,6 +1,6 @@
 ﻿# Patchnote Gameplay Complet (cumulatif)
 
-- Derniere version patchnote: v1.0.0
+- Derniere version patchnote: v1.0.1
 - Derniere mise a jour: 2026-03-08
 - Comparaison: K-Mod Karadoc -> version actuelle du mod.
 - Historique versions: [patchnotes/README.md](patchnotes/README.md)
@@ -444,8 +444,3 @@
     - Force: 4 -> 7
     - Mouvement: 2 -> 1
     - Promotions gratuites: Mobilite -> Aucun
-
-
-
-
-

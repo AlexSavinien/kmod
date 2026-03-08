@@ -1,8 +1,9 @@
 ﻿# Historique des Patchnotes
 
-Derniere version: `v1.0.0` (2026-03-08)
+Derniere version: `v1.0.1` (2026-03-08)
 
 ## Versions
+- [v1.0.1 - Patchnote](patchnote_v1.0.1.md)
 - [v1.0.0 - Patchnote](patchnote_v1.0.0.md)
 
 ## Workflow
