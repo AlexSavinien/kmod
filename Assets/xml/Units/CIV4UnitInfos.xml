@@ -8433,7 +8433,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_CUIRASSIER</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -8510,7 +8510,7 @@
 			<iChanceFirstStrikes>0</iChanceFirstStrikes>
 			<iInterceptionProbability>0</iInterceptionProbability>
 			<iEvasionProbability>0</iEvasionProbability>
-			<iWithdrawalProb>15</iWithdrawalProb>
+            <iWithdrawalProb>20</iWithdrawalProb>
 			<iCollateralDamage>0</iCollateralDamage>
 			<iCollateralDamageLimit>0</iCollateralDamageLimit>
 			<iCollateralDamageMaxUnits>0</iCollateralDamageMaxUnits>
@@ -8539,7 +8539,7 @@
 			<UnitCombatMods>
 				<UnitCombatMod>
 					<UnitCombatType>UNITCOMBAT_MOUNTED</UnitCombatType>
-					<iUnitCombatMod>75</iUnitCombatMod>
+                    <iUnitCombatMod>0</iUnitCombatMod>
 				</UnitCombatMod>
 			</UnitCombatMods>
 			<UnitCombatCollateralImmunes/>
@@ -12044,7 +12044,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_WAR_ELEPHANT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -12229,7 +12229,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_WAR_ELEPHANT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -12414,7 +12414,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_WAR_ELEPHANT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -12661,7 +12661,7 @@
 			<ProductionTraits/>
 			<Flavors/>
 			<iAIWeight>0</iAIWeight>
-			<iCost>50</iCost>
+            <iCost>45</iCost>
 			<iHurryCostModifier>0</iHurryCostModifier>
 			<iAdvancedStartCost>100</iAdvancedStartCost>
 			<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>
@@ -12685,7 +12685,7 @@
 			<FeatureImpassables/>
 			<TerrainPassableTechs/>
 			<FeaturePassableTechs/>
-			<iCombat>6</iCombat>
+            <iCombat>5</iCombat>
 			<iCombatLimit>100</iCombatLimit>
 			<iAirCombat>0</iAirCombat>
 			<iAirCombatLimit>0</iAirCombatLimit>
@@ -12695,7 +12695,7 @@
 			<iChanceFirstStrikes>0</iChanceFirstStrikes>
 			<iInterceptionProbability>0</iInterceptionProbability>
 			<iEvasionProbability>0</iEvasionProbability>
-			<iWithdrawalProb>20</iWithdrawalProb>
+            <iWithdrawalProb>40</iWithdrawalProb>
 			<iCollateralDamage>0</iCollateralDamage>
 			<iCollateralDamageLimit>100</iCollateralDamageLimit>
 			<iCollateralDamageMaxUnits>6</iCollateralDamageMaxUnits>
@@ -12893,7 +12893,7 @@
 			<iChanceFirstStrikes>0</iChanceFirstStrikes>
 			<iInterceptionProbability>0</iInterceptionProbability>
 			<iEvasionProbability>0</iEvasionProbability>
-			<iWithdrawalProb>20</iWithdrawalProb>
+            <iWithdrawalProb>30</iWithdrawalProb>
 			<iCollateralDamage>0</iCollateralDamage>
 			<iCollateralDamageLimit>100</iCollateralDamageLimit>
 			<iCollateralDamageMaxUnits>6</iCollateralDamageMaxUnits>
@@ -13063,7 +13063,7 @@
 			<ProductionTraits/>
 			<Flavors/>
 			<iAIWeight>0</iAIWeight>
-			<iCost>65</iCost>
+            <iCost>55</iCost>
 			<iHurryCostModifier>0</iHurryCostModifier>
 			<iAdvancedStartCost>100</iAdvancedStartCost>
 			<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>
@@ -13087,7 +13087,7 @@
 			<FeatureImpassables/>
 			<TerrainPassableTechs/>
 			<FeaturePassableTechs/>
-			<iCombat>8</iCombat>
+            <iCombat>6</iCombat>
 			<iCombatLimit>100</iCombatLimit>
 			<iAirCombat>0</iAirCombat>
 			<iAirCombatLimit>0</iAirCombatLimit>
@@ -13097,10 +13097,10 @@
 			<iChanceFirstStrikes>0</iChanceFirstStrikes>
 			<iInterceptionProbability>0</iInterceptionProbability>
 			<iEvasionProbability>0</iEvasionProbability>
-			<iWithdrawalProb>20</iWithdrawalProb>
-			<iCollateralDamage>0</iCollateralDamage>
-			<iCollateralDamageLimit>100</iCollateralDamageLimit>
-			<iCollateralDamageMaxUnits>6</iCollateralDamageMaxUnits>
+            <iWithdrawalProb>30</iWithdrawalProb>
+            <iCollateralDamage>50</iCollateralDamage>
+            <iCollateralDamageLimit>60</iCollateralDamageLimit>
+            <iCollateralDamageMaxUnits>5</iCollateralDamageMaxUnits>
 			<iCityAttack>0</iCityAttack>
 			<iCityDefense>0</iCityDefense>
 			<iAnimalCombat>0</iAnimalCombat>
@@ -13245,7 +13245,7 @@
 			<StateReligion>NONE</StateReligion>
 			<PrereqReligion>NONE</PrereqReligion>
 			<PrereqCorporation>NONE</PrereqCorporation>
-			<PrereqBuilding>NONE</PrereqBuilding>
+            <PrereqBuilding>BUILDING_STABLE</PrereqBuilding>
 			<PrereqTech>TECH_GUILDS</PrereqTech>
 			<TechTypes>
 				<PrereqTech>TECH_HORSEBACK_RIDING</PrereqTech>
@@ -13439,7 +13439,7 @@
 			<StateReligion>NONE</StateReligion>
 			<PrereqReligion>NONE</PrereqReligion>
 			<PrereqCorporation>NONE</PrereqCorporation>
-			<PrereqBuilding>NONE</PrereqBuilding>
+            <PrereqBuilding>BUILDING_STABLE</PrereqBuilding>
 			<PrereqTech>TECH_GUILDS</PrereqTech>
 			<TechTypes>
 				<PrereqTech>TECH_HORSEBACK_RIDING</PrereqTech>
@@ -13633,7 +13633,7 @@
 			<StateReligion>NONE</StateReligion>
 			<PrereqReligion>NONE</PrereqReligion>
 			<PrereqCorporation>NONE</PrereqCorporation>
-			<PrereqBuilding>NONE</PrereqBuilding>
+            <PrereqBuilding>BUILDING_STABLE</PrereqBuilding>
 			<PrereqTech>TECH_GUILDS</PrereqTech>
 			<TechTypes>
 				<PrereqTech>TECH_HORSEBACK_RIDING</PrereqTech>
@@ -14567,7 +14567,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_CUIRASSIER</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -14598,15 +14598,20 @@
 			<StateReligion>NONE</StateReligion>
 			<PrereqReligion>NONE</PrereqReligion>
 			<PrereqCorporation>NONE</PrereqCorporation>
-			<PrereqBuilding>NONE</PrereqBuilding>
-			<PrereqTech>TECH_CONSTRUCTION</PrereqTech>
+            <PrereqBuilding>BUILDING_STABLE</PrereqBuilding>
+            <PrereqTech>TECH_FEUDALISM</PrereqTech>
 			<TechTypes>
 				<PrereqTech>TECH_HORSEBACK_RIDING</PrereqTech>
-				<PrereqTech>NONE</PrereqTech>
+				<PrereqTech>TECH_CONSTRUCTION</PrereqTech>
 				<PrereqTech>NONE</PrereqTech>
 			</TechTypes>
-			<BonusType>BONUS_IVORY</BonusType>
-			<PrereqBonuses/>
+            <BonusType>BONUS_HORSE</BonusType>
+            <PrereqBonuses>
+                <BonusType>BONUS_IRON</BonusType>
+                <BonusType>NONE</BonusType>
+                <BonusType>NONE</BonusType>
+                <BonusType>NONE</BonusType>
+            </PrereqBonuses>
 			<ProductionTraits/>
 			<Flavors/>
 			<iAIWeight>0</iAIWeight>
@@ -14615,7 +14620,7 @@
 			<iAdvancedStartCost>100</iAdvancedStartCost>
 			<iAdvancedStartCostIncrease>0</iAdvancedStartCostIncrease>
 			<iMinAreaSize>-1</iMinAreaSize>
-			<iMoves>1</iMoves>
+            <iMoves>2</iMoves>
 			<bNoRevealMap>0</bNoRevealMap>
 			<iAirRange>0</iAirRange>
 			<iAirUnitCap>0</iAirUnitCap>
@@ -14644,12 +14649,12 @@
 			<iChanceFirstStrikes>0</iChanceFirstStrikes>
 			<iInterceptionProbability>0</iInterceptionProbability>
 			<iEvasionProbability>0</iEvasionProbability>
-			<iWithdrawalProb>0</iWithdrawalProb>
+            <iWithdrawalProb>10</iWithdrawalProb>
 			<iCollateralDamage>0</iCollateralDamage>
 			<iCollateralDamageLimit>0</iCollateralDamageLimit>
 			<iCollateralDamageMaxUnits>0</iCollateralDamageMaxUnits>
-			<iCityAttack>0</iCityAttack>
-			<iCityDefense>0</iCityDefense>
+            <iCityAttack>-25</iCityAttack>
+            <iCityDefense>-25</iCityDefense>
 			<iAnimalCombat>0</iAnimalCombat>
 			<iHillsAttack>0</iHillsAttack>
 			<iHillsDefense>0</iHillsDefense>
@@ -14664,7 +14669,7 @@
 			<UnitCombatMods>
 				<UnitCombatMod>
 					<UnitCombatType>UNITCOMBAT_MOUNTED</UnitCombatType>
-					<iUnitCombatMod>50</iUnitCombatMod>
+                    <iUnitCombatMod>0</iUnitCombatMod>
 				</UnitCombatMod>
 			</UnitCombatMods>
 			<UnitCombatCollateralImmunes/>
@@ -14688,7 +14693,7 @@
 				<iRangedWaveSize>2</iRangedWaveSize>
 				<UnitMeshGroup>
 					<iRequired>2</iRequired>
-					<EarlyArtDefineTag>ART_DEF_UNIT_WAR_ELEPHANT</EarlyArtDefineTag>
+                    <EarlyArtDefineTag>ART_DEF_UNIT_KNIGHT</EarlyArtDefineTag>
 				</UnitMeshGroup>
 			</UnitMeshGroups>
 			<FormationType>FORMATION_TYPE_DEFAULT</FormationType>
@@ -14752,7 +14757,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_CUIRASSIER</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -14795,8 +14800,13 @@
 				<PrereqTech>NONE</PrereqTech>
 				<PrereqTech>NONE</PrereqTech>
 			</TechTypes>
-			<BonusType>BONUS_IVORY</BonusType>
-			<PrereqBonuses/>
+            <BonusType>NONE</BonusType>
+            <PrereqBonuses>
+                <BonusType>BONUS_HORSE</BonusType>
+                <BonusType>BONUS_IVORY</BonusType>
+                <BonusType>NONE</BonusType>
+                <BonusType>NONE</BonusType>
+            </PrereqBonuses>
 			<ProductionTraits/>
 			<Flavors/>
 			<iAIWeight>0</iAIWeight>
@@ -14824,7 +14834,7 @@
 			<FeatureImpassables/>
 			<TerrainPassableTechs/>
 			<FeaturePassableTechs/>
-			<iCombat>8</iCombat>
+            <iCombat>7</iCombat>
 			<iCombatLimit>100</iCombatLimit>
 			<iAirCombat>0</iAirCombat>
 			<iAirCombatLimit>0</iAirCombatLimit>
@@ -14854,7 +14864,7 @@
 			<UnitCombatMods>
 				<UnitCombatMod>
 					<UnitCombatType>UNITCOMBAT_MOUNTED</UnitCombatType>
-					<iUnitCombatMod>50</iUnitCombatMod>
+                    <iUnitCombatMod>75</iUnitCombatMod>
 				</UnitCombatMod>
 			</UnitCombatMods>
 			<UnitCombatCollateralImmunes/>
@@ -14942,7 +14952,7 @@
 			<bAlwaysHostile>0</bAlwaysHostile>
 			<UnitClassUpgrades>
 				<UnitClassUpgrade>
-					<UnitClassUpgradeType>UNITCLASS_CUIRASSIER</UnitClassUpgradeType>
+                    <UnitClassUpgradeType>UNITCLASS_KNIGHT</UnitClassUpgradeType>
 					<bUnitClassUpgrade>1</bUnitClassUpgrade>
 				</UnitClassUpgrade>
 			</UnitClassUpgrades>
@@ -14980,8 +14990,13 @@
 				<PrereqTech>NONE</PrereqTech>
 				<PrereqTech>NONE</PrereqTech>
 			</TechTypes>
-			<BonusType></BonusType>
-			<PrereqBonuses/>
+            <BonusType>NONE</BonusType>
+            <PrereqBonuses>
+                <BonusType>BONUS_HORSE</BonusType>
+                <BonusType>BONUS_IVORY</BonusType>
+                <BonusType>NONE</BonusType>
+                <BonusType>NONE</BonusType>
+            </PrereqBonuses>
 			<ProductionTraits/>
 			<Flavors/>
 			<iAIWeight>0</iAIWeight>

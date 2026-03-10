@@ -1,10 +1,9 @@
 ﻿# Patchnote Gameplay Complet (cumulatif)
 
-- Derniere version patchnote: v1.0.1
-- Derniere mise a jour: 2026-03-08
+- Derniere version patchnote: v1.0.2
+- Derniere mise a jour: 2026-03-10
 - Comparaison: K-Mod Karadoc -> version actuelle du mod.
 - Historique versions: [patchnotes/README.md](patchnotes/README.md)
-
 ## Vue d'ensemble
 - Leaders modifies ou ajoutes: 54
 - Unites modifiees ou ajoutees: 20
@@ -14,6 +13,12 @@
 - Le mod passe de nombreux leaders a un profil a 3 traits (au lieu de 2).
 - Le gameplay unique par civilisation est plus marque via les unites et batiments uniques.
 - Ajouts systemiques: routes logistiques de nourriture, Water Well, ferme intensive, et selection rapide de piles.
+- Refonte du palier de cavalerie lourde:
+  - `UNIT_WAR_ELEPHANT` devient l'unite de transition vers le Chevalier (F8 / C70 / M2, malus ville, retrait 10%).
+  - Prerequis de la cavalerie lourde: Equitation + Construction + Feodalisme, Ecurie, Cheval ET Fer.
+  - `UNIT_HORSE_ARCHER` reequilibree en cavalerie legere (F5 / C45 / M2, retrait 40%).
+- Flux d'upgrade harmonise:
+  - Chariot (et UUs associees) -> Cavalerie lourde -> Chevalier.
 
 ## Batiments globaux (non lies a une civilisation)
 - Bibliotheque: bonus de bonheur pour les leaders Philosophiques.
@@ -23,6 +28,7 @@
 - Oracle: prerequis technologique ajuste et cout revu.
 - Epopee heroique: prerequis technologique avance.
 - Cheval de Troie: nouveau batiment mondial ajoute.
+- Ecurie: prerequis de production ajoute pour la cavalerie lourde et la ligne du Chevalier.
 
 ## Changements par civilisation (ordre alphabetique FR)
 
@@ -97,6 +103,7 @@
 - Unites:
   - Arabia Camelarcher
     - Premieres frappes: 0 -> 1
+    - Prerequis batiment: Ecurie requise (aligne sur la ligne Chevalier)
 
 - Batiments:
   - Arabian Madrassa
@@ -141,6 +148,7 @@
   - Carthage Numidian Cavalry
     - Cout: 50 -> 37
     - Promotions gratuites: Flanquement I -> Combat I
+    - Retrait: 30%
 
 - Batiments:
   - Carthage Cothon
@@ -223,6 +231,7 @@
 - Unites:
   - Ethiopian Oromo Warrior
     - Promotions gratuites: Exercice I, Exercice II -> Exercice I, Exercice II, Guerilla I, Guerilla II
+    - Profil unitaire: F7 / C80 / M2, retrait 20%, sans bonus anti-cavalerie
 
 - Batiments:
   - Ethiopian Stele
@@ -267,6 +276,8 @@
 - Unites:
   - Indian Ballista Elephant
     - Statut: Absent -> Ajoute
+    - Profil unitaire: F8 / C65 / M1, +50% contre unites montees
+    - Ressource requise: Cheval OU Ivoire
 
 ### Japon
 
@@ -284,6 +295,12 @@
 - Leaders:
   - Don Zboub: Aucun -> Charismatique / Travailleur / Industrieux
   - Suryavarman: Travailleur / Creatif -> Charismatique / Creatif / Agricole
+
+- Unites:
+  - Khmer Ballista Elephant
+    - Profil unitaire: F7 / C70 / M1, +75% contre unites montees
+    - Cible prioritairement les unites montees
+    - Ressource requise: Cheval OU Ivoire
 
 ### Mali
 
@@ -309,8 +326,10 @@
 
 - Unites:
   - Mongol Keshik
-    - Cout: 50 -> 65
-    - Force: 6 -> 8
+    - Cout: 50 -> 55
+    - Retrait: 30%
+    - IgnoreTerrainCost: conserve
+    - Degats collateraux: ajoutes
 
 - Batiments:
   - Mongol Ger
@@ -352,6 +371,7 @@
 - Unites:
   - Persia Immortal
     - Cout: 30 -> 27
+    - Flux d'upgrade: Immortal -> Cavalerie lourde -> Chevalier
 
 - Batiments:
   - Persian Apothecary
@@ -444,3 +464,4 @@
     - Force: 4 -> 7
     - Mouvement: 2 -> 1
     - Promotions gratuites: Mobilite -> Aucun
+
